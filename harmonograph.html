@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Harmonograph Simulation</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      canvas {
+        background-color: #ffffff;
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="harmonographCanvas" width="800" height="800"></canvas>
+
+    <script>
+      const canvas = document.getElementById("harmonographCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const width = canvas.width;
+      const height = canvas.height;
+
+      let time = 0;
+
+      // Parameters for the harmonograph
+      const params = {
+        A1: 150,
+        A2: 150,
+        A3: 150,
+        A4: 150,
+        f1: 0.5,
+        f2: 0.6,
+        f3: 0.7,
+        f4: 0.8,
+        p1: 0,
+        p2: Math.PI / 2,
+        p3: Math.PI / 4,
+        p4: Math.PI / 6,
+        d1: 0.01,
+        d2: 0.01,
+        d3: 0.01,
+        d4: 0.01,
+      };
+
+      function harmonograph(t) {
+        const { A1, A2, A3, A4, f1, f2, f3, f4, p1, p2, p3, p4, d1, d2, d3, d4 } = params;
+        const x = A1 * Math.sin(f1 * t + p1) * Math.exp(-d1 * t) + A2 * Math.sin(f2 * t + p2) * Math.exp(-d2 * t);
+        const y = A3 * Math.sin(f3 * t + p3) * Math.exp(-d3 * t) + A4 * Math.sin(f4 * t + p4) * Math.exp(-d4 * t);
+        return { x, y };
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.beginPath();
+        ctx.moveTo(width / 2, height / 2);
+
+        for (let t = 0; t < 10000; t += 0.1) {
+          const { x, y } = harmonograph(t);
+          ctx.lineTo(width / 2 + x, height / 2 + y);
+        }
+
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+
+      function animate() {
+        draw();
+        time += 0.1;
+        requestAnimationFrame(animate);
+      }
+
+      // Start the animation
+      animate();
+    </script>
+  </body>
+</html>

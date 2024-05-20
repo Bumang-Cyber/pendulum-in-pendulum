@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pendulum Simulation</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      canvas {
+        background-color: #ffffff;
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="pendulumCanvas" width="600" height="400"></canvas>
+
+    <script>
+      const canvas = document.getElementById("pendulumCanvas");
+      const ctx = canvas.getContext("2d");
+
+      const width = canvas.width;
+      const height = canvas.height;
+
+      // Pendulum parameters
+      const originX = width / 2;
+      const originY = 50;
+      let length = 200;
+      let angle = Math.PI / 4; // Initial angle (45 degrees)
+      let angleVelocity = 0; // Initial angular velocity
+      let angleAcceleration = 0; // Initial angular acceleration
+      const damping = 0.995; // Damping factor
+
+      const gravity = 0.4; // Gravitational constant
+
+      function drawPendulum() {
+        ctx.clearRect(0, 0, width, height);
+
+        // Calculate position of the pendulum bob
+        const bobX = originX + length * Math.sin(angle);
+        const bobY = originY + length * Math.cos(angle);
+
+        // Draw the pendulum rod
+        ctx.beginPath();
+        ctx.moveTo(originX, originY);
+        ctx.lineTo(bobX, bobY);
+        ctx.strokeStyle = "#000";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Draw the pendulum bob
+        ctx.beginPath();
+        ctx.arc(bobX, bobY, 20, 0, Math.PI * 2);
+        ctx.fillStyle = "#000";
+        ctx.fill();
+        ctx.stroke();
+      }
+
+      function updatePendulum() {
+        // Calculate angular acceleration
+        angleAcceleration = (-gravity / length) * Math.sin(angle);
+
+        // Update angular velocity and angle
+        angleVelocity += angleAcceleration;
+        angleVelocity *= damping; // Apply damping
+        angle += angleVelocity;
+
+        drawPendulum();
+      }
+
+      function animate() {
+        updatePendulum();
+        requestAnimationFrame(animate);
+      }
+
+      // Start the animation
+      animate();
+    </script>
+  </body>
+</html>

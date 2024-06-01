@@ -1,13 +1,13 @@
-const pendulum = new Pendulum();
+const pendulum = new Pendulum(0.1);
 
 function setup() {
   setLayerOutside();
-  pendulum.setPendulum(createVector(width / 2, -200), PI / 2, createVector(), 600);
+  pendulum.setPendulumSettings(createVector(width / 2, -1000), PI / 2, createVector(), 1400);
   setLayerInside();
 }
 
 function draw() {
   drawBlurToClear();
-  pendulum.swingPendulum();
   drawLayerInside();
+  pendulum.swingPendulum();
 }

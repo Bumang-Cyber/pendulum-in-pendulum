@@ -1,8 +1,9 @@
-let layerOutside;
-let layerInside;
-let layerInsideImage;
+let layerOuter;
+let layerOuterImage;
+let layerInner;
+let layerInnerImage;
 
 function preload() {
-  layerOutside = loadImage("../asset/hatred400.png");
-  layerInsideImage = loadImage("../asset/happiness400.png");
+  layerOuterImage = loadImage("../asset/happy.png");
+  layerInnerImage = loadImage("../asset/anger.png");
 }

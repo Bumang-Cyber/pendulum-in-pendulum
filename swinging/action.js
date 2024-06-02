@@ -1,13 +1,20 @@
-const pendulum = new Pendulum(0.1);
+const pendulum = new Pendulum(0.5);
+
+function setCanvas() {
+  createCanvas(layerOuterImage.width, layerOuterImage.height);
+  imageMode(CENTER); // 이미지를 중앙에 위치시키기 위해 모드 설정
+}
 
 function setup() {
-  setLayerOutside();
-  pendulum.setPendulumSettings(createVector(width / 2, -1000), PI / 2, createVector(), 1400);
-  setLayerInside();
+  setCanvas();
+  // origin, angle, bob, len
+  setlayerOuter();
+  setlayerInner();
 }
 
 function draw() {
-  drawBlurToClear();
-  drawLayerInside();
+  drawBlur(layerOuterImage, "DOWN");
+  drawlayerInner();
+  drawlayerOuter();
   pendulum.swingPendulum();
 }

@@ -5,9 +5,10 @@ class Pendulum {
     this.angleV = 0; // 각속도 초기화
     this.angleA = 0.001; // 각가속도 초기화
 
-    this.bob = createVector();
     this.len = 1400;
-    this.this.gravity = 1;
+    this.bob = createVector();
+    this.gravity = 1;
+    this.tempCount = 0;
   }
 
   setPendulumSettings(origin, angle, angleV, angleA, len, bob, gravity) {
@@ -56,7 +57,7 @@ class Pendulum {
     };
   }
 
-  swingPendulum() {
+  swingPendulumContinuously() {
     // push와 pop으로 그리기 상태를 저장할 수 있다.
     push(); // 현재의 그리기 상태를 저장
     let force = this.gravity * sin(this.angle);
@@ -66,6 +67,83 @@ class Pendulum {
     this.angle += this.angleV;
 
     // 추의 x, y
+    this.bob.x = this.len * sin(this.angle) + this.origin.x;
+    this.bob.y = this.len * cos(this.angle) + this.origin.y;
+
+    // layerOuter에 pendulum이 그려짐
+    layerOuter.stroke(255);
+    layerOuter.strokeWeight(4);
+    // 시작점의 x,y, bob의 x,y를 라인으로 이음
+    layerOuter.line(this.origin.x, this.origin.y, this.bob.x, this.bob.y);
+    // bob의 x, y를 중점으로 반지름 64의 원을 생성
+
+    layerOuter.stroke(75, 100, 255);
+    layerOuter.strokeWeight(8);
+    layerOuter.fill(255, 0, 0, 0);
+    layerOuter.circle(this.bob.x, this.bob.y, 410);
+    layerOuter.erase();
+    layerOuter.circle(this.bob.x, this.bob.y, 400);
+    layerOuter.noErase();
+    pop(); // 이전의 그리기 상태로 복원
+  }
+
+  swingPendulumDecremently(decre = 0.99) {
+    // push와 pop으로 그리기 상태를 저장할 수 있다.
+    push(); // 현재의 그리기 상태를 저장
+    let force = this.gravity * sin(this.angle);
+
+    this.angleA = (-1 * force) / this.len;
+    this.angleV += this.angleA;
+    this.angle += this.angleV;
+
+    this.angleV *= decre;
+
+    // 추의 x, y
+    this.bob.x = this.len * sin(this.angle) + this.origin.x;
+    this.bob.y = this.len * cos(this.angle) + this.origin.y;
+
+    // layerOuter에 pendulum이 그려짐
+    layerOuter.stroke(255);
+    layerOuter.strokeWeight(4);
+    // 시작점의 x,y, bob의 x,y를 라인으로 이음
+    layerOuter.line(this.origin.x, this.origin.y, this.bob.x, this.bob.y);
+    // bob의 x, y를 중점으로 반지름 64의 원을 생성
+
+    layerOuter.stroke(75, 100, 255);
+    layerOuter.strokeWeight(8);
+    layerOuter.fill(255, 0, 0, 0);
+    layerOuter.circle(this.bob.x, this.bob.y, 410);
+    layerOuter.erase();
+    layerOuter.circle(this.bob.x, this.bob.y, 400);
+    layerOuter.noErase();
+    pop(); // 이전의 그리기 상태로 복원
+  }
+
+  swingPendulumIncremently(incre = 1.01, maxAbs = 0.9) {
+    // push와 pop으로 그리기 상태를 저장할 수 있다.
+    push(); // 현재의 그리기 상태를 저장
+
+    if (this.tempCount === 0) {
+      this.angle = 0;
+      this.tempCount++;
+    }
+
+    // 진자에 작용하는 중력의 힘 계산
+    let force = this.gravity * sin(this.angle);
+    this.angleA = (-1 * (force ? force : 0.1)) / this.len; // 각가속도 계산
+    this.angleV += this.angleA; // 각속도 업데이트
+
+    if (this.angle > maxAbs) {
+      this.angleV *= 0.99; // 감쇠 효과 추가 (공기 저항 등)
+    } else if (this.angle < -maxAbs) {
+      this.angleV *= 0.99; // 감쇠 효과 추가 (공기 저항 등)
+    } else {
+      this.angleV *= 1.01; // 증감 효과 추가
+    }
+
+    this.angle += this.angleV; // 각도 업데이트
+
+    // 추의 위치 계산
     this.bob.x = this.len * sin(this.angle) + this.origin.x;
     this.bob.y = this.len * cos(this.angle) + this.origin.y;
 

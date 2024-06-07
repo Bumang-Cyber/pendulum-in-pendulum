@@ -4,6 +4,6 @@ let layerInner;
 let layerInnerImage;
 
 function preload() {
-  layerOuterImage = loadImage("../asset/happy.png");
-  layerInnerImage = loadImage("../asset/anger.png");
+  layerOuterImage = loadImage("../asset/happy.jpg");
+  layerInnerImage = loadImage("../asset/anger.jpg");
 }

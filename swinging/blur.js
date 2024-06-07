@@ -4,7 +4,7 @@ function drawBlur(target, way) {
 
   // 블러 강도를 점차 줄이기
   if (way === "DOWN" || undefined) {
-    blurAmount -= 0.5;
+    blurAmount -= 0.1;
     if (blurAmount < 0) blurAmount = 0;
 
     // 원본 이미지를 그리고 블러 필터 적용

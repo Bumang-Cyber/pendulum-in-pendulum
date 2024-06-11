@@ -9,9 +9,19 @@ class Pendulum {
     this.bob = createVector();
     this.gravity = 1;
     this.tempCount = 0;
+    this.r = 400;
   }
 
-  setPendulumSettings(origin, angle, angleV, angleA, len, bob, gravity) {
+  setPendulumSettings(
+    origin = createVector(width / 2, -1000), //
+    angle = PI / 3,
+    angleV = 0,
+    angleA = 0.001,
+    len = 1400,
+    bob = createVector(),
+    gravity = 0,
+    r = 400
+  ) {
     this.origin = origin;
     this.angle = angle;
     this.angleV = angleV;
@@ -19,6 +29,7 @@ class Pendulum {
     this.len = len;
     this.bob = bob;
     this.gravity = gravity;
+    this.r = r;
   }
 
   setPendulumOrigin(origin) {
@@ -45,6 +56,11 @@ class Pendulum {
     this.gravity = gravity;
   }
 
+  setBobExpand(inc = 1.005) {
+    this.r *= inc;
+    if (this.r > 2000) this.r = 2000;
+  }
+
   getPendulumStatus() {
     return {
       origin: this.origin,
@@ -54,6 +70,7 @@ class Pendulum {
       len: this.len,
       bob: this.bob,
       gravity: this.gravity,
+      r: this.r,
     };
   }
 
@@ -80,9 +97,9 @@ class Pendulum {
     layerOuter.stroke(75, 100, 255);
     layerOuter.strokeWeight(8);
     layerOuter.fill(255, 0, 0, 0);
-    layerOuter.circle(this.bob.x, this.bob.y, 410);
+    layerOuter.circle(this.bob.x, this.bob.y, this.r + 10);
     layerOuter.erase();
-    layerOuter.circle(this.bob.x, this.bob.y, 400);
+    layerOuter.circle(this.bob.x, this.bob.y, this.r);
     layerOuter.noErase();
     pop(); // 이전의 그리기 상태로 복원
   }
@@ -112,11 +129,13 @@ class Pendulum {
     layerOuter.stroke(75, 100, 255);
     layerOuter.strokeWeight(8);
     layerOuter.fill(255, 0, 0, 0);
-    layerOuter.circle(this.bob.x, this.bob.y, 410);
+    layerOuter.circle(this.bob.x, this.bob.y, this.r + 10);
     layerOuter.erase();
-    layerOuter.circle(this.bob.x, this.bob.y, 400);
+    layerOuter.circle(this.bob.x, this.bob.y, this.r);
     layerOuter.noErase();
     pop(); // 이전의 그리기 상태로 복원
+
+    // console.log("decreasing");
   }
 
   swingPendulumIncremently(incre = 1.01, maxAbs = 0.9) {
@@ -157,9 +176,9 @@ class Pendulum {
     layerOuter.stroke(75, 100, 255);
     layerOuter.strokeWeight(8);
     layerOuter.fill(255, 0, 0, 0);
-    layerOuter.circle(this.bob.x, this.bob.y, 410);
+    layerOuter.circle(this.bob.x, this.bob.y, this.r + 10);
     layerOuter.erase();
-    layerOuter.circle(this.bob.x, this.bob.y, 400);
+    layerOuter.circle(this.bob.x, this.bob.y, this.r);
     layerOuter.noErase();
     pop(); // 이전의 그리기 상태로 복원
   }
@@ -170,5 +189,8 @@ class Pendulum {
 
     layerOuterImage = temp2;
     layerInnerImage = temp1;
+
+    // this.setPendulumSettings();
+    // this.swingPendulumDecremently();
   }
 }

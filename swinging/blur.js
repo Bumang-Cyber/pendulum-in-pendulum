@@ -1,3 +1,5 @@
+let blurAmount = 20;
+
 function drawBlur(target, way) {
   push();
   clear(); // 캔버스를 지움 (투명한 배경으로 초기화)

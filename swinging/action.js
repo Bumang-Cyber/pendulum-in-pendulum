@@ -1,28 +1,9 @@
 let pendulum;
-let scene = 0;
+let curScene = 1;
+let maxScene = 4;
+let InitialAnimation = true;
 
-let pendulumVectorControl = {
-  // CONTINUOUSLY | INCREMENT | DECREMENT
-  CURRENT: "CONTINUOUSLY",
-};
-
-// let interval = setInterval(() => {
-//   scene++;
-// }, 2000);
-
-function useSceneController(scene, ...props) {
-  const currentSequence = scene % 3;
-  console.log("current Sequence is ...", currentSequence);
-
-  // 씬의 세부 항목
-  const { origin, angle, angleV, angleA, len, bob, gravity } = props;
-
-  if (currentSequence === 0) {
-  } else if (currentSequence === 1) {
-  } else if (currentSequence === 2) {
-  } else if (currentSequence === 3) {
-  }
-}
+let bobVel = 1.005;
 
 function setup() {
   createCanvas(layerOuterImage.width, layerOuterImage.height);
@@ -35,21 +16,50 @@ function setup() {
   setlayerInner();
 }
 
-pendulumVectorControl.CURRENT = "DECREMENT";
-
 function draw() {
   const pendulumStatus = pendulum.getPendulumStatus();
   drawBlur(layerOuterImage, "DOWN");
   drawlayerInner();
   drawlayerOuter();
 
-  if (pendulumVectorControl.CURRENT === "CONTINUOUSLY") {
-    pendulum.swingPendulumContinuously();
-  } else if (pendulumVectorControl.CURRENT === "DECREMENT") {
-    pendulum.swingPendulumDecremently();
-  } else if (pendulumVectorControl.CURRENT === "INCREMENT") {
-    pendulum.swingPendulumIncremently(1.01, 0.4);
+  useSceneController(curScene, { ...pendulumStatus });
+}
+
+function useSceneController(scene, { ...props }) {
+  if (InitialAnimation) {
+    const timeout = setTimeout(() => {
+      // Initial Animation
+      console.log("Initial Animation Played!");
+      curScene = 3;
+    }, 10000);
+    InitialAnimation = false;
+    return;
   }
 
-  useSceneController(scene, { ...pendulumStatus });
+  // console.log(curScene, "curScene");
+
+  // pendulum의 세부 항목을 각 조건문 안에서 조작할 예정
+  const { origin, angle, angleV, angleA, len, bob, gravity, r } = props;
+
+  if (scene === 0) {
+    pendulum.swingPendulumContinuously();
+  } else if (scene === 1) {
+    pendulum.swingPendulumDecremently();
+  } else if (scene === 2) {
+    pendulum.swingPendulumIncremently(1.01, 0.4);
+  } else if (scene === 3) {
+    pendulum.swingPendulumDecremently();
+    bobVel *= 1.001;
+    if (r > 700) {
+      bobVel *= 1.006;
+    }
+    pendulum.setBobExpand(bobVel);
+
+    if (r > 1500) {
+      pendulum.setPendulumSettings();
+      console.log(r, "r");
+      pendulum.convertScenes();
+      curScene = 1;
+    }
+  }
 }

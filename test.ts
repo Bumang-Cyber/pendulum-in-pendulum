@@ -11,7 +11,7 @@ type type5 = "b" | "c";
 type type6 = type4 & type5;
 
 const typed6: type6 = "b";
-console.log(typed6);
+// console.log(typed6);
 
 type PositionX = { x: number; z: number };
 type PositionY = { y: number; z: string };

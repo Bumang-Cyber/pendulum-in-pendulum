@@ -10,6 +10,7 @@ class Pendulum {
     this.gravity = 1;
     this.tempCount = 0;
     this.r = 400;
+    this.way = "RtL";
   }
 
   setPendulumSettings(
@@ -18,18 +19,20 @@ class Pendulum {
     angleV = 0,
     angleA = 0.001,
     len = 1400,
-    bob = createVector(),
-    gravity = 0,
-    r = 400
+    gravity = 1,
+    r = 400,
+    way
   ) {
     this.origin = origin;
     this.angle = angle;
     this.angleV = angleV;
     this.angleA = angleA;
     this.len = len;
-    this.bob = bob;
     this.gravity = gravity;
     this.r = r;
+    this.way = way;
+
+    console.log(way, "way");
   }
 
   setPendulumOrigin(origin) {
@@ -71,6 +74,7 @@ class Pendulum {
       bob: this.bob,
       gravity: this.gravity,
       r: this.r,
+      way: this.way,
     };
   }
 
@@ -152,13 +156,7 @@ class Pendulum {
     this.angleA = (-1 * (force ? force : 0.1)) / this.len; // 각가속도 계산
     this.angleV += this.angleA; // 각속도 업데이트
 
-    if (this.angle > maxAbs) {
-      this.angleV *= 0.99; // 감쇠 효과 추가 (공기 저항 등)
-    } else if (this.angle < -maxAbs) {
-      this.angleV *= 0.99; // 감쇠 효과 추가 (공기 저항 등)
-    } else {
-      this.angleV *= 1.01; // 증감 효과 추가
-    }
+    this.angleV *= 0.2; // 감쇠 효과 추가 (공기 저항 등)
 
     this.angle += this.angleV; // 각도 업데이트
 
@@ -186,11 +184,10 @@ class Pendulum {
   convertScenes() {
     let temp1 = layerOuterImage;
     let temp2 = layerInnerImage;
+    let temp3 = layerAltImage;
 
     layerOuterImage = temp2;
-    layerInnerImage = temp1;
-
-    // this.setPendulumSettings();
-    // this.swingPendulumDecremently();
+    layerInnerImage = temp3;
+    layerAltImage = temp1;
   }
 }

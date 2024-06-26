@@ -1,9 +1,9 @@
 let pendulum;
 let curScene = 1;
 let maxScene = 4;
-let InitialAnimation = true;
+let intervalAnimation = true;
 
-let bobVel = 1.005;
+let bobExpendingV = 1.005;
 
 function setup() {
   createCanvas(layerOuterImage.width, layerOuterImage.height);
@@ -11,7 +11,6 @@ function setup() {
   // origin, angle, bob, len
 
   pendulum = new Pendulum();
-  pendulum.setPendulumAngleGravity(0.7);
   setlayerOuter();
   setlayerInner();
 }
@@ -26,40 +25,62 @@ function draw() {
 }
 
 function useSceneController(scene, { ...props }) {
-  if (InitialAnimation) {
+  if (intervalAnimation) {
     const timeout = setTimeout(() => {
       // Initial Animation
-      console.log("Initial Animation Played!");
+      console.log("Interval Animation Played!");
       curScene = 3;
-    }, 10000);
-    InitialAnimation = false;
+    }, 9000);
+    intervalAnimation = false;
     return;
   }
 
   // console.log(curScene, "curScene");
 
   // pendulum의 세부 항목을 각 조건문 안에서 조작할 예정
-  const { origin, angle, angleV, angleA, len, bob, gravity, r } = props;
+  const { origin, angle, angleV, angleA, len, bob, gravity, r, way } = props;
 
   if (scene === 0) {
     pendulum.swingPendulumContinuously();
   } else if (scene === 1) {
     pendulum.swingPendulumDecremently();
+    // console.log("it's 1 now");
   } else if (scene === 2) {
     pendulum.swingPendulumIncremently(1.01, 0.4);
   } else if (scene === 3) {
     pendulum.swingPendulumDecremently();
-    bobVel *= 1.001;
+
+    console.log(bobExpendingV, "bobExpendingV");
+    bobExpendingV *= 1.001;
     if (r > 700) {
-      bobVel *= 1.006;
+      bobExpendingV *= 1.006;
     }
-    pendulum.setBobExpand(bobVel);
+    pendulum.setBobExpand(bobExpendingV);
 
     if (r > 1500) {
-      pendulum.setPendulumSettings();
-      console.log(r, "r");
+      pendulum.setPendulumSettings(
+        createVector(width / 2, -1000), //
+        way === "RtL" ? -PI / 3 : PI / 3,
+        0,
+        0.001,
+        1400,
+        1,
+        400,
+        switchWay(way)
+      );
+
       pendulum.convertScenes();
       curScene = 1;
+      intervalAnimation = true;
+      bobExpendingV = 1.005;
     }
+  }
+}
+
+function switchWay(way) {
+  if (way === "RtL") {
+    return "LtR";
+  } else if (way === "LtR") {
+    return "RtL";
   }
 }

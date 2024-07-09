@@ -6,7 +6,7 @@ let layerAlt;
 let layerAltImage;
 
 function preload() {
-  layerOuterImage = loadImage("../asset/happy.jpg");
-  layerInnerImage = loadImage("../asset/anger.jpg");
-  layerAltImage = loadImage("../asset/joy.jpg");
+  layerOuterImage = loadImage("../asset/one.jpg");
+  layerInnerImage = loadImage("../asset/two.jpg");
+  layerAltImage = loadImage("../asset/three.jpg");
 }

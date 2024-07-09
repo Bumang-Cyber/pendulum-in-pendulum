@@ -1,16 +1,16 @@
 class Pendulum {
   constructor() {
-    this.origin = createVector(width / 2, -1000);
-    this.angle = PI / 3;
+    this.origin = createVector(width / 2, -1000); // 오리진 좌표
+    this.angle = PI / 3; // 각도
     this.angleV = 0; // 각속도 초기화
     this.angleA = 0.001; // 각가속도 초기화
 
-    this.len = 1400;
-    this.bob = createVector();
-    this.gravity = 1;
+    this.len = 1400; // 줄 길이
+    this.bob = createVector(); // '추'의 벡터
+    this.gravity = 1; // 중력
     this.tempCount = 0;
-    this.r = 400;
-    this.way = "RtL";
+    this.r = 400; // '추'의 반지금
+    this.way = "RtL"; // '추'의 진행방향
   }
 
   setPendulumSettings(

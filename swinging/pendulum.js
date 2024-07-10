@@ -1,3 +1,4 @@
+// pendulum 객체
 class Pendulum {
   constructor() {
     this.origin = createVector(width / 2, -1000); // 오리진 좌표

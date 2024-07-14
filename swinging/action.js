@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     playAllAudio();
     playButton.style.display = "none"; // Hide the button after playing
   });
-  playButton.click();
+  setTimeout(() => playButton.click(), 3000);
 });
 
 function setup() {

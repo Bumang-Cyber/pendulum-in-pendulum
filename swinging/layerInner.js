@@ -7,5 +7,5 @@ function setlayerInner() {
 function drawlayerInner() {
   image(layerInner, width / 2, height / 2);
   layerInner.imageMode(CENTER);
-  layerInner.image(layerInnerImage, width / 2, height / 2, width, height);
+  layerInner.image(layerInnerImage, width / 2, height / 2, (innerHeight * IMGWIDTH) / IMGHEIGHT, innerHeight);
 }

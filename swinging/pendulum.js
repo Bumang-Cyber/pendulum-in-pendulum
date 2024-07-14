@@ -12,11 +12,26 @@ class Pendulum {
     this.tempCount = 0;
     this.r = 400; // '추'의 반지금
     this.way = "RtL"; // '추'의 진행방향
+    this.round = 0;
+    this.scenes = [
+      {
+        color: "#E3B0AF",
+        music: "NATURE",
+      },
+      {
+        color: "#591E70", //
+        music: "FORGIVEME",
+      },
+      {
+        color: "#25032C", //
+        music: "DREAM",
+      },
+    ];
   }
 
   setPendulumSettings(
     origin = createVector(width / 2, -1000), //
-    angle = PI / 3,
+    angle = PI / 2,
     angleV = 0,
     angleA = 0.001,
     len = 1400,
@@ -76,6 +91,8 @@ class Pendulum {
       gravity: this.gravity,
       r: this.r,
       way: this.way,
+      scenes: this.scenes,
+      round: this.round,
     };
   }
 
@@ -183,6 +200,8 @@ class Pendulum {
   }
 
   convertScenes() {
+    this.round++;
+
     let temp1 = layerOuterImage;
     let temp2 = layerInnerImage;
     let temp3 = layerAltImage;
@@ -190,5 +209,7 @@ class Pendulum {
     layerOuterImage = temp2;
     layerInnerImage = temp3;
     layerAltImage = temp1;
+
+    return this.scenes[this.round % 3];
   }
 }

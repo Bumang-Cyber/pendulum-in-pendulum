@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const audioDream = document.getElementById("audioDream");
   const audioForgiveMe = document.getElementById("audioForgiveMe");
 
-  audioNature.volume = 1;
+  audioNature.volume = 0;
   audioDream.volume = 0;
   audioForgiveMe.volume = 0;
 
@@ -43,7 +43,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     playAllAudio();
     playButton.style.display = "none"; // Hide the button after playing
   });
-  setTimeout(() => playButton.click(), 3000);
+  setTimeout(() => {
+    playButton.click();
+    audioNature.volume = 1;
+  }, 3000);
 });
 
 function setup() {

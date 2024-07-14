@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
   // Add event listener to the play button
   playButton.addEventListener("click", () => {
     playAllAudio();
-    console("??????");
     playButton.style.display = "none"; // Hide the button after playing
   });
   playButton.click();

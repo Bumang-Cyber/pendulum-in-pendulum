@@ -46,6 +46,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   setTimeout(() => {
     playButton.click();
     audioNature.volume = 1;
+    audioDream.muted = false;
+    audioNature.muted = false;
+    audioForgiveMe.muted = false;
   }, 3000);
 });
 

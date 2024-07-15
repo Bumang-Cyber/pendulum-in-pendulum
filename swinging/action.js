@@ -41,13 +41,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
     playAllAudio();
     playButton.style.display = "none"; // Hide the button after playing
   });
-  setTimeout(() => {
-    playButton.click();
-    audioNature.volume = 1;
-    audioDream.muted = false;
-    audioNature.muted = false;
-    audioForgiveMe.muted = false;
-  }, 300);
+
+  const clickEvent = new MouseEvent("click", {
+    view: window,
+    bubbles: true,
+    cancelable: true,
+    clientX: 100, // 클릭 위치 설정
+    clientY: 200,
+  });
+  playButton.dispatchEvent(clickEvent);
 });
 
 function setup() {
@@ -197,11 +199,9 @@ function intervalMusicPlayer(currentMusic, nextMusic, angle) {
 window.addEventListener("click", () => {
   const playButton = document.getElementById("playAudioButton");
 
-  setTimeout(() => {
-    playButton.click();
-    audioNature.volume = 1;
-    audioDream.muted = false;
-    audioNature.muted = false;
-    audioForgiveMe.muted = false;
-  }, 300);
+  playButton.click();
+  audioNature.volume = 1;
+  audioDream.muted = false;
+  audioNature.muted = false;
+  audioForgiveMe.muted = false;
 });

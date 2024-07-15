@@ -49,7 +49,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     clientX: 100, // 클릭 위치 설정
     clientY: 200,
   });
-  playButton.dispatchEvent(clickEvent);
+  setTimeout(() => {
+    playButton.dispatchEvent(clickEvent);
+  }, 1000);
 });
 
 function setup() {

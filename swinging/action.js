@@ -195,6 +195,8 @@ function intervalMusicPlayer(currentMusic, nextMusic, angle) {
 }
 
 window.addEventListener("click", () => {
+  const playButton = document.getElementById("playAudioButton");
+
   setTimeout(() => {
     playButton.click();
     audioNature.volume = 1;

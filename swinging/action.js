@@ -44,7 +44,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   navigator.mediaDevices
     .getUserMedia({ video: true })
-    .then(function () {
+    .then(function (video) {
+      playAllAudio();
       audioNature.volume = 1;
       audioDream.muted = false;
       audioNature.muted = false;

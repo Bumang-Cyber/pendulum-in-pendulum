@@ -11,8 +11,6 @@ const audioDream = document.getElementById("audioDream");
 const audioForgiveMe = document.getElementById("audioForgiveMe");
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  console.log("???HHJKHG");
-
   const playButton = document.getElementById("playAudioButton");
 
   const audioNature = document.getElementById("audioNature");
@@ -49,7 +47,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     audioDream.muted = false;
     audioNature.muted = false;
     audioForgiveMe.muted = false;
-  }, 3000);
+  }, 300);
 });
 
 function setup() {
@@ -195,3 +193,13 @@ function intervalMusicPlayer(currentMusic, nextMusic, angle) {
     }
   }
 }
+
+window.addEventListener("click", () => {
+  setTimeout(() => {
+    playButton.click();
+    audioNature.volume = 1;
+    audioDream.muted = false;
+    audioNature.muted = false;
+    audioForgiveMe.muted = false;
+  }, 300);
+});

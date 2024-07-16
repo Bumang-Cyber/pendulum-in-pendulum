@@ -32,6 +32,7 @@ class Pendulum {
     this.lensHeight = this.r * 3 + 300;
     this.lensOriginY = -120;
     this.lensVY = 1;
+    this.lensOpacity = 255;
   }
 
   setPendulumSettings(
@@ -85,6 +86,7 @@ class Pendulum {
     this.lensHeight = this.r * 3 + 270;
     this.lensOriginY = -120;
     this.lensVY = 1;
+    this.lensOpacity = 255;
   }
 
   setBobExpand(inc = 1.005) {
@@ -177,7 +179,12 @@ class Pendulum {
     layerOuter.circle(this.bob.x, this.bob.y, this.r);
 
     // 추 이미지 그리기
-    this.drawLensImage();
+    if (this.r > 500) {
+      this.lensOpacity -= 10;
+      this.drawLensImage(this.lensOpacity);
+    } else {
+      this.drawLensImage();
+    }
 
     layerOuter.noErase();
     pop(); // 이전의 그리기 상태로 복원

@@ -3,6 +3,7 @@ let curScene = 1;
 let maxScene = 4;
 let intervalAnimation = true;
 let startDrop = null;
+let flag = true;
 
 let bobExpendingV = 1.005;
 
@@ -45,11 +46,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
   navigator.mediaDevices
     .getUserMedia({ video: true })
     .then(function (video) {
-      playAllAudio();
-      audioNature.volume = 1;
-      audioDream.muted = false;
-      audioNature.muted = false;
-      audioForgiveMe.muted = false;
+      if (flag) {
+        playAllAudio();
+        audioNature.volume = 1;
+        audioDream.muted = false;
+        audioNature.muted = false;
+        audioForgiveMe.muted = false;
+
+        flag = false;
+      }
     })
     .catch(function (err) {
       console.log("The following error occurred: " + err.name);
@@ -90,7 +95,7 @@ function useSceneController(scene, { ...props }) {
   // console.log(curScene, "curScene");
 
   // pendulum의 세부 항목을 각 조건문 안에서 조작할 예정
-  const { origin, angle, angleV, angleA, len, bob, gravity, r, way, scenes, round } = props;
+  const { origin, angle, angleV, angleA, len, bob, gravity, r, way, scenes, round, lensWidth, lensHeight } = props;
 
   if (scene === 0) {
     setTimeout(() => (curScene = 1), 5000);
@@ -124,6 +129,7 @@ function useSceneController(scene, { ...props }) {
         400,
         switchWay(way)
       );
+      pendulum.resetLensImage();
 
       const { color, music } = pendulum.convertScenes();
 

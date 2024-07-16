@@ -2,6 +2,7 @@
 class Pendulum {
   constructor() {
     this.origin = createVector(width / 2, -1000); // 오리진 좌표
+
     this.angle = PI / 3; // 각도
     this.angleV = 0; // 각속도 초기화
     this.angleA = 0.001; // 각가속도 초기화
@@ -27,6 +28,9 @@ class Pendulum {
         music: "DREAM",
       },
     ];
+    this.lensWidth = this.r * 3 - 40;
+    this.lensHeight = this.r * 3 + 300;
+    this.lensOriginY = -120;
   }
 
   setPendulumSettings(
@@ -75,9 +79,21 @@ class Pendulum {
     this.gravity = gravity;
   }
 
+  resetLensImage() {
+    this.lensWidth = this.r * 3 - 70;
+    this.lensHeight = this.r * 3 + 270;
+    this.lensOriginY = -120;
+  }
+
   setBobExpand(inc = 1.005) {
     this.r *= inc;
-    if (this.r > 2000) this.r = 2000;
+    this;
+    this.lensWidth *= inc - 0.001;
+    this.lensHeight *= inc - 0.001;
+    this.lensOriginY -= inc * 3;
+    if (this.r > 2000) {
+      this.r = 2000;
+    }
   }
 
   getPendulumStatus() {
@@ -93,6 +109,8 @@ class Pendulum {
       way: this.way,
       scenes: this.scenes,
       round: this.round,
+      lensWidth: this.lensWidth,
+      lensHeight: this.lensHeight,
     };
   }
 
@@ -154,10 +172,27 @@ class Pendulum {
     layerOuter.circle(this.bob.x, this.bob.y, this.r + 10);
     layerOuter.erase();
     layerOuter.circle(this.bob.x, this.bob.y, this.r);
+
+    // 추 이미지 그리기
+    this.drawLensImage();
+
     layerOuter.noErase();
     pop(); // 이전의 그리기 상태로 복원
 
     // console.log("decreasing");
+  }
+
+  drawLensImage(opacity = 255) {
+    if (lensImage) {
+      tint(255, opacity);
+      // 이미지가 로드된 경우
+      push();
+      translate(this.bob.x, this.bob.y); // 추의 위치로 이동
+      rotate(-this.angle); // 각도를 조정하여 이미지를 회전
+      imageMode(CENTER); // 이미지 모드를 센터로 설정
+      image(lensImage, 0, this.lensOriginY, this.lensWidth, this.lensHeight); // 추 이미지 그리기
+      pop();
+    }
   }
 
   swingPendulumIncremently(incre = 1.01, maxAbs = 0.9) {
@@ -191,8 +226,8 @@ class Pendulum {
 
     layerOuter.stroke(75, 100, 255);
     layerOuter.strokeWeight(8);
-    layerOuter.fill(255, 0, 0, 0);
-    layerOuter.circle(this.bob.x, this.bob.y, this.r + 10);
+    layerOuter.fill(0, 0, 0, 0);
+    // layerOuter.circle(this.bob.x, this.bob.y, this.r);
     layerOuter.erase();
     layerOuter.circle(this.bob.x, this.bob.y, this.r);
     layerOuter.noErase();

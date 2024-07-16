@@ -8,6 +8,7 @@ let layerInnerImage;
 let layerAlt;
 let layerAltImage;
 let lensImage;
+let echoSound = new Audio("../asset/audio_echo.mp3");
 
 function preload() {
   layerOuterImage = loadImage("../asset/p51.png");

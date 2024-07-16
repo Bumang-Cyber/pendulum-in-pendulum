@@ -110,6 +110,7 @@ function useSceneController(scene, { ...props }) {
     pendulum.swingPendulumIncremently(1.01, 0.4);
   } else if (scene === 3) {
     pendulum.swingPendulumDecremently();
+    echoSound.play();
 
     console.log(bobExpendingV, "bobExpendingV");
     bobExpendingV *= 1.001;

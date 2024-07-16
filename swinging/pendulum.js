@@ -31,6 +31,7 @@ class Pendulum {
     this.lensWidth = this.r * 3 - 40;
     this.lensHeight = this.r * 3 + 300;
     this.lensOriginY = -120;
+    this.lensVY = 1;
   }
 
   setPendulumSettings(
@@ -83,14 +84,16 @@ class Pendulum {
     this.lensWidth = this.r * 3 - 70;
     this.lensHeight = this.r * 3 + 270;
     this.lensOriginY = -120;
+    this.lensVY = 1;
   }
 
   setBobExpand(inc = 1.005) {
+    this.lensVY += 0.1;
     this.r *= inc;
     this;
     this.lensWidth *= inc - 0.001;
     this.lensHeight *= inc - 0.001;
-    this.lensOriginY -= inc * 3;
+    this.lensOriginY -= inc * this.lensVY;
     if (this.r > 2000) {
       this.r = 2000;
     }
@@ -136,7 +139,7 @@ class Pendulum {
 
     layerOuter.stroke(75, 100, 255);
     layerOuter.strokeWeight(8);
-    layerOuter.fill(255, 0, 0, 0);
+    layerOuter.fill(0, 0, 0, 0);
     layerOuter.circle(this.bob.x, this.bob.y, this.r + 10);
     layerOuter.erase();
     layerOuter.circle(this.bob.x, this.bob.y, this.r);
@@ -166,9 +169,9 @@ class Pendulum {
     layerOuter.line(this.origin.x, this.origin.y, this.bob.x, this.bob.y);
     // bob의 x, y를 중점으로 반지름 64의 원을 생성
 
-    layerOuter.stroke(75, 100, 255);
+    layerOuter.stroke(255, 255, 255);
     layerOuter.strokeWeight(8);
-    layerOuter.fill(255, 0, 0, 0);
+    layerOuter.fill(0, 0, 0, 0);
     layerOuter.circle(this.bob.x, this.bob.y, this.r + 10);
     layerOuter.erase();
     layerOuter.circle(this.bob.x, this.bob.y, this.r);

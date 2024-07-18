@@ -26,6 +26,12 @@
     <script src="./swinging/action.js"></script>
   </head>
   <body>
+    <svg width="0" height="0">
+      <filter id="turbulence">
+        <feTurbulence type="turbulence" baseFrequency="0.001" numOctaves="2" result="turbulence" />
+        <feDisplacementMap in="SourceGraphic" in2="turbulence" scale="10" />
+      </filter>
+    </svg>
     <button id="playAudioButton" style="position: absolute; opacity: 0; z-index: 30; width: 1000px; height: 1000px">Start</button>
   </body>
 </html>

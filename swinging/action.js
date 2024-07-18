@@ -7,6 +7,16 @@ let flag = true;
 
 let bobExpendingV = 1.005;
 
+let turbulenceElement;
+let displacementMapElement;
+
+let interval;
+let baseFrequency;
+let duration;
+let innerKey;
+
+let xoff = 0; // 펄린 노이즈의 오프셋 값
+
 const audioNature = document.getElementById("audioNature");
 const audioDream = document.getElementById("audioDream");
 const audioForgiveMe = document.getElementById("audioForgiveMe");
@@ -64,6 +74,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 function setup() {
   createCanvas((innerHeight * IMGWIDTH) / IMGHEIGHT, innerHeight);
 
+  turbulenceElement = document.querySelector("feTurbulence");
+  displacementMapElement = document.querySelector("feDisplacementMap");
+
   imageMode(CENTER); // 이미지를 중앙에 위치시키기 위해 모드 설정
   // origin, angle, bob, len
 
@@ -79,6 +92,30 @@ function draw() {
   drawlayerOuter();
 
   useSceneController(curScene, { ...pendulumStatus });
+
+  const { scenes, round } = pendulum.getPendulumStatus();
+  const thisScene = scenes[round % 3];
+
+  if (thisScene.music === "NATURE") {
+    baseFrequency = noise(xoff) * 0.0002;
+    duration = 500;
+  } else if (thisScene.music === "FORGIVEME") {
+    baseFrequency = noise(xoff) * 0.0008;
+    duration = 100;
+  } else if (thisScene.music === "DREAM") {
+    baseFrequency = noise(xoff) * 0.004;
+    duration = 50;
+  }
+
+  if (!interval || !innerKey || innerKey !== thisScene.music) {
+    innerKey = thisScene.music;
+    clearInterval(interval);
+    interval = setInterval(() => {
+      xoff += 1;
+
+      turbulenceElement.setAttribute("baseFrequency", baseFrequency);
+    }, duration);
+  }
 }
 
 function useSceneController(scene, { ...props }) {

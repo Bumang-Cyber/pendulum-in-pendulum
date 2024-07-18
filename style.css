@@ -101,6 +101,10 @@ body {
   background-color: #e3b0af;
 }
 
+#defaultCanvas0 {
+  filter: url(#turbulence);
+}
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,

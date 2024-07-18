@@ -99,6 +99,9 @@ video {
 
 body {
   background-color: #e3b0af;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #defaultCanvas0 {

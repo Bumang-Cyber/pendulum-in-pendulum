@@ -135,7 +135,7 @@ function useSceneController(scene, { ...props }) {
   const { origin, angle, angleV, angleA, len, bob, gravity, r, way, scenes, round, lensWidth, lensHeight } = props;
 
   if (scene === 0) {
-    setTimeout(() => (curScene = 1), 5000);
+    setTimeout(() => (curScene = 1), 3000);
     return;
   } else if (scene === 1) {
     pendulum.swingPendulumDecremently();

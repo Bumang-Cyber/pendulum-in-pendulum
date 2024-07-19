@@ -8,4 +8,9 @@ function drawlayerOuter() {
   image(layerOuter, width / 2, height / 2);
   layerOuter.imageMode(CENTER);
   layerOuter.image(layerOuterImage, width / 2, height / 2, (innerHeight * IMGWIDTH) / IMGHEIGHT, innerHeight);
+
+  // if (OVERALL_SCENE === "FORGIVEME") {
+  //   drawlayerRabbit();
+  //   drawlayerRacoon();
+  // }
 }

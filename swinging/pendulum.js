@@ -239,6 +239,12 @@ class Pendulum {
     layerOuter.fill(0, 0, 0, 0);
     // layerOuter.circle(this.bob.x, this.bob.y, this.r);
     layerOuter.erase();
+
+    if (OVERALL_SCENE === "NATURE") {
+      drawlayerRabbit();
+      drawlayerRacoon();
+    }
+
     layerOuter.circle(this.bob.x, this.bob.y, this.r);
     layerOuter.noErase();
     pop(); // 이전의 그리기 상태로 복원

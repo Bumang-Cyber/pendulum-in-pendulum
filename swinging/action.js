@@ -81,6 +81,8 @@ function setup() {
   // origin, angle, bob, len
 
   pendulum = new Pendulum();
+  setlayerRabbit();
+  setlayerRacoon();
   setlayerOuter();
   setlayerInner();
 }
@@ -97,12 +99,15 @@ function draw() {
   const thisScene = scenes[round % 3];
 
   if (thisScene.music === "NATURE") {
+    OVERALL_SCENE = "NATURE";
     baseFrequency = noise(xoff) * 0.0002;
     duration = 500;
   } else if (thisScene.music === "FORGIVEME") {
+    OVERALL_SCENE = "FORGIVEME";
     baseFrequency = noise(xoff) * 0.0008;
     duration = 100;
   } else if (thisScene.music === "DREAM") {
+    OVERALL_SCENE = "DREAM";
     baseFrequency = noise(xoff) * 0.004;
     duration = 50;
   }

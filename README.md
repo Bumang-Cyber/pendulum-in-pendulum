@@ -1,7 +1,7 @@
 # Pendulum in Pendulum
 ### 끝없이 떨어지는 진자 추 안의 세계
 
-Creative Coding Lab 137.5의 첫 번째 전시에 참여한 작품입니다.
+Creative Coding Lab 137.5의 첫 번째 전시에 참여한 작품이다.
 
 ![img1](https://github.com/user-attachments/assets/b27926b7-c05a-4848-a314-eac7f35988c4)
 ![img2](https://github.com/user-attachments/assets/65482205-7794-419d-825a-ecf8f67852de)
@@ -27,7 +27,8 @@ https://github.com/code137-5
 <br/>
 
 ## Making <br/>
-p5.js를 이용하여 진자운동, 레이어 마스킹, 시퀀스 순서 관리, 타이밍에 맞춘 트랜지션 및 효과음 재생 등을 구현하였습니다.
+- 개발: p5.js를 이용하여 진자운동, 레이어 마스킹, 시퀀스 순서 관리, 타이밍에 맞춘 트랜지션 및 효과음 재생 등을 구현하였다.
+- 디자인: Procreate를 이용하여 일러스트를 그리고, Photoshop을 이용하여 프레임 by 프레임 애니메이션을 만들었다.
 
 **구현 로직 설명** <br/>
 https://bumang.tistory.com/241

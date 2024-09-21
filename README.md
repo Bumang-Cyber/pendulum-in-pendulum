@@ -18,7 +18,7 @@ Creative Coding Lab 137.5의 첫 번째 전시에 참여한 작품이다.
 모두의 연구소 강남점 | 2024.07.19. - 2024.07.27.
 
 **배포 주소:** <br/>
-truth-in-pendulum.vercel.app
+[truth-in-pendulum.vercel.app](https://truth-in-pendulum.vercel.app/)
 
 **Creative Coding Lab 137.5 레포:** <br/>
 https://github.com/code137-5
